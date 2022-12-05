@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    username<input type="text" id="description">
+    email<input type="text" id="category">
+    name<input type="text" id="prise">
+    <button onclick="show()">show data</button>
+    <button onclick="add_data()">add data</button>
+    <div id="view"></div>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+       // const my_server = ' http://localhost:3000/prodacty/'
+        const my_server = ' https://jsonplaceholder.typicode.com/users/'
+        //get
+        const show=()=>{
+        axios.get(my_server).then((response)=> view.innerHTML=response.data.map(pr => `<h1><button onclick="del(${pr.id})">delete prodact ${pr.id}</button><button onclick="upd(${pr.id})">update prodact ${pr.id}</button><br>username:${pr.username}<br>email:${pr.email}<br>name:${pr.name}</h1><hr>`))}
+        //post
+        const add_data=()=>{
+        axios.post(my_server,{username:description.value ,email:category.value ,street:prise.value})
+          .then((response) => console.log(response.data))}
+        //delete
+        const del=(id)=>{
+        axios.delete(my_server + id).then((res) => console.log(res.data))
+        }
+        //upduet
+        const upd=(id)=>{
+        axios.put(my_server + id,{username:description.value ,email:category.value ,name:prise.value}) .then(console.log('put'))
+        }
+    </script>
+</body>
+
+</html>
